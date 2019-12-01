@@ -13,8 +13,9 @@ struct userInfo
     char user_password[50];
 };
 struct userInfo userAccounts[100];
-int user_count = 0;
-int creat_account_count = 0;
+
+int user_count;
+int creat_account_count;
 
 
 //Transaction history variable
@@ -26,14 +27,117 @@ struct transaction
 struct transaction tr_hestory[100];
 
 
+// Initialize user account
+int initializer_account()
+{
+    // Ashik
+    userAccounts[0].account_number = 12345;
+    userAccounts[0].phone_number = 12345678910;
+    userAccounts[0].account_balance = 0;
+    strcpy(userAccounts[0].full_name,"Ashik");
+    strcpy(userAccounts[0].user_name,"user1");
+    strcpy(userAccounts[0].user_password,"12345");
+
+    // Rahul
+    userAccounts[1].account_number = 12346;
+    userAccounts[1].phone_number = 12345678911;
+    userAccounts[1].account_balance = 0;
+    strcpy(userAccounts[1].full_name,"Rahul");
+    strcpy(userAccounts[1].user_name,"user2");
+    strcpy(userAccounts[1].user_password,"12345");
+
+    user_count = 1;
+    creat_account_count = 1;
+}
+
+
+
+                // Admin section :
+
+
+// Admin menu function
+int admin_menu()
+{
+    system("cls");
+    int choice_admin_menu;
+    printf("\n\t\t\t\tThe admin menu : ");
+    printf("\n\t\t\t\t1. List of customer");
+    printf("\n\t\t\t\t2. Edit user information");
+    printf("\n\t\t\t\t3. Delete user");
+    printf("\n\t\t\t\t4. Log out");
+
+    printf("\n\n\t\t\t\tEnter your choice : ");
+    scanf("%d",&choice_admin_menu);
+    if(choice_admin_menu == 1)
+    {
+        system("cls");
+        userList();
+    }
+    else if(choice_admin_menu == 2)
+    {
+        system("cls");
+        edit_user_list();
+    }
+    else if(choice_admin_menu == 3)
+    {
+        system("cls");
+        //delete_user_list();
+    }
+    else if(choice_admin_menu == 4)
+    {
+        system("cls");
+        main();
+    }
+}
+// Admin wrong information function
+int admin_wrong_info()
+{
+    int try_again;
+    system("color 4");
+    printf("\n\n\t\t\t\tWrong information! Press 1 to try again :");
+    scanf("%d",&try_again);
+    if(try_again == 1)
+    {
+        system("cls");
+        admin_login();
+    }
+    else
+    {
+        return 0;
+    }
+
+}
+// Admin login function
+int admin_login()
+{
+    system("color 7");
+    char admin_username[100],admin_password[100],theAdmin[100] = "team8",adminPass[100] = "team8";
+    printf("\n\n\t\t\t\tWelcome to the admin panel.\n");
+    printf("\n\t\t\t\tPlease enter your user name : ");
+    scanf("%s",&admin_username);
+    printf("\n\t\t\t\tPlease enter your password : ");
+    scanf("%s",&admin_password);
+    if(strcmp(admin_username,theAdmin) == 0 && strcmp(admin_password,adminPass) == 0)
+    {
+        admin_menu();
+    }
+    else
+    {
+        system("cls");
+        admin_wrong_info();
+    }
+
+}
+
 int userList()
 {
     int i,go_back;
     printf("\n\n\t\t\t\tBank user list : \n\n");
-    for(i=0; i<user_count; i++)
+    for(i=0; i<=user_count; i++)
     {
         printf("\n\t\t\t\t%d. %s",i+1,userAccounts[i].full_name);
     }
+    printf("\n%d",user_count);
     printf("\n\n\t\t\t\tPress 0 to back :");
     scanf("%d",&go_back);
     if(go_back == 0)
@@ -47,7 +151,7 @@ int userList()
 int edit_user_information(int user_account)
 {
     int i;
-    for(i=0; i<user_count; i++)
+    for(i=0; i<=user_count; i++)
     {
         if(userAccounts[i].account_number == user_account)
         {
@@ -132,79 +236,9 @@ int edit_user_list()
     }
 }
 
-// Admin menu function
-int admin_menu()
-{
-    system("cls");
-    int choice_admin_menu;
-    printf("\n\t\t\t\tThe admin menu : ");
-    printf("\n\t\t\t\t1. List of customer");
-    printf("\n\t\t\t\t2. Edit user information");
-    printf("\n\t\t\t\t3. Delete user");
-    printf("\n\t\t\t\t4. Log out");
 
-    printf("\n\n\t\t\t\tEnter your choice : ");
-    scanf("%d",&choice_admin_menu);
-    if(choice_admin_menu == 1)
-    {
-        system("cls");
-        userList();
-    }
-    else if(choice_admin_menu == 2)
-    {
-        system("cls");
-        edit_user_list();
-    }
-    else if(choice_admin_menu == 3)
-    {
-        system("cls");
-        delete_user_list();
-    }
-    else if(choice_admin_menu == 4)
-    {
-        system("cls");
-        main();
-    }
-}
-// Admin wrong information function
-int admin_wrong_info()
-{
-    int try_again;
-    system("color 4");
-    printf("\n\n\t\t\t\tWrong information! Press 1 to try again :");
-    scanf("%d",&try_again);
-    if(try_again == 1)
-    {
-        system("cls");
-        admin_login();
-    }
-    else
-    {
-        return 0;
-    }
 
-}
-// Admin login function
-int admin_login()
-{
-    system("color 7");
-    char admin_username[100],admin_password[100],theAdmin[100] = "team8",adminPass[100] = "team8";
-    printf("\n\n\t\t\t\tWelcome to the admin panel.\n");
-    printf("\n\t\t\t\tPlease enter your user name : ");
-    scanf("%s",&admin_username);
-    printf("\n\t\t\t\tPlease enter your password : ");
-    scanf("%s",&admin_password);
-    if(strcmp(admin_username,theAdmin) == 0 && strcmp(admin_password,adminPass) == 0)
-    {
-        admin_menu();
-    }
-    else
-    {
-        system("cls");
-        admin_wrong_info();
-    }
-
-}
+                    // User panel
 // User menu function
 int user_menu(int user_account_number)
 {
@@ -274,11 +308,14 @@ int user_login()
     check_user_info(user_account_number,user_password);
 }
 
+
+                // Main page panel
+
+
 // Create user account function
 
 int create_account()
 {
-
     printf("\n\t\t\t\tPlease enter all the information : ");
     printf("\n\n\t\t\t\tEnter a account number : ");
     scanf("%d",&userAccounts[creat_account_count].account_number);
@@ -291,50 +328,25 @@ int create_account()
     printf("\n\t\t\t\tEnter a password : ");
     scanf("%s",&userAccounts[creat_account_count].user_password);
 
-    if(userAccounts[creat_account_count].account_number != 0 && userAccounts[creat_account_count].phone_number != 0 && userAccounts[creat_account_count].full_name != 0 && userAccounts[creat_account_count].user_name != 0 && userAccounts[creat_account_count].user_password != 0)
+    creat_account_count++;
+    user_count++;
+
+    int action;
+    printf("\n\n\t\t\t\tAccount create successful. Press 1 to create new account (Press 0 to go back) : ");
+    scanf("%d",&action);
+    if(action == 0)
     {
-        creat_account_count ++;
-        user_count++;
-        int action;
-        printf("\n\n\t\t\t\tAccount create successful. Press 1 to create new account (Press 0 to go back) : ");
-        scanf("%d",&action);
-        if(action == 0)
-        {
-            system("cls");
-            main();
-        }
-        else if(action == 1)
-        {
-            system("cls");
-            create_account();
-        }
-
+        system("cls");
+        main();
     }
+    else if(action == 1)
+    {
+        system("cls");
+        create_account();
+    }
+
 }
 
-
-// Initialize user account
-int initializer_account()
-{
-    // Ashik
-    userAccounts[0].account_number = 12345;
-    userAccounts[0].phone_number = 12345678910;
-    userAccounts[0].account_balance = 0;
-    strcpy(userAccounts[0].full_name,"Ashik");
-    strcpy(userAccounts[0].user_name,"user1");
-    strcpy(userAccounts[0].user_password,"12345");
-
-    // Rahul
-    userAccounts[1].account_number = 12346;
-    userAccounts[1].phone_number = 12345678911;
-    userAccounts[1].account_balance = 0;
-    strcpy(userAccounts[1].full_name,"Rahul");
-    strcpy(userAccounts[1].user_name,"user2");
-    strcpy(userAccounts[1].user_password,"12345");
-
-    user_count = 2;
-    creat_account_count = 2;
-}
 // Main function
 int main()
 {
