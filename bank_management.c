@@ -132,41 +132,6 @@ int edit_user_list()
     }
 }
 
-int delete_user_information(user_account)
-{
-    int i;
-    for(i=0; i<user_count; i++)
-    {
-        if(userAccounts[i].account_number == user_account)
-        {
-            //userAccounts[i]
-        }
-    }
-}
-// Delete user account list
-int delete_user_list()
-{
-    int i,choice;
-    printf("\n\n\t\t\t\tBank user list : \n\n");
-    for(i=0; i<user_count; i++)
-    {
-        printf("\n\t\t\t\t%d. %s",i+1,userAccounts[i].full_name);
-    }
-    printf("\n\n\t\t\t\tSelect a user from the list (Press 0 to back) : ");
-    scanf("%d",&choice);
-    if(choice == 0)
-    {
-        system("cls");
-        admin_menu();
-    }
-    else
-    {
-        system("cls");
-        int user_account = userAccounts[choice-1].account_number;
-        delete_user_information(user_account);
-    }
-}
-
 // Admin menu function
 int admin_menu()
 {
@@ -347,14 +312,7 @@ int create_account()
     }
 }
 
-// Make deposit function
-int user_deposit(){
-    system("cls");
-    int amount;
-    printf("\n\t\t\t\tPlease enter a amount : ");
-    scanf("%d",&amount);
 
-}
 // Initialize user account
 int initializer_account()
 {
